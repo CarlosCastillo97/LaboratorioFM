@@ -6,14 +6,24 @@
 
 
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Random;
-
 import java.util.stream.IntStream;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -28,7 +38,43 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
     public MantenimientoUsuarios() {
         initComponents();
     }
+    
+public void generar(String nombre) throws FileNotFoundException, DocumentException {
+        if(!(txtNombre.getText().isEmpty() || (txtDire.getText().isEmpty()) || (txtMem.getText().isEmpty()) || (txtNum.getText().isEmpty()) || (txtDPI.getText().isEmpty()))){
 
+        FileOutputStream archivo = new FileOutputStream(nombre + ".pdf");
+        Document documento = new Document();
+        PdfWriter.getInstance(documento, archivo);
+        documento.open();
+        
+        Paragraph parrafo = new Paragraph("BIENVENIDO A LA MEMBRESIA FILM MAGIC");
+        Paragraph parrafo1 = new Paragraph("DATOS DE MEMBRESIA: ");
+        parrafo.setAlignment(1);
+        documento.add(parrafo);
+        documento.add(parrafo1);
+        
+        documento.add(new Paragraph("Nombre: " + txtNombre.getText()));
+        documento.add(new Paragraph("Direccion: " + txtDire.getText()));
+        documento.add(new Paragraph("Numero Telefonico: " + txtNum.getText()));
+        documento.add(new Paragraph("DPI: " + txtDPI.getText()));
+        documento.add(new Paragraph("Membresia: " + txtMem.getText()));
+        documento.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------"));
+        documento.close();
+        JOptionPane.showMessageDialog(null, "Archivo PDF creado correctamente","Información",1);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos","Atención",2);
+        }
+    }
+
+    public void abrir(String nombre) {
+        try {
+            File path = new File(nombre + ".pdf");
+            Desktop.getDesktop().open(path);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex,"Atención",2);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,6 +84,7 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -52,6 +99,13 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txtMem = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txtNum = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtDPI = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+
+        jLabel5.setText("jLabel5");
 
         setClosable(true);
         setIconifiable(true);
@@ -107,6 +161,17 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel6.setText("Numero Tel,");
+
+        jLabel7.setText("DPI");
+
+        jButton6.setText("Imprimir Membresia");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,27 +194,35 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
                         .addComponent(lblEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton5)
-                        .addGap(79, 79, 79))
+                        .addComponent(jLabel3)
+                        .addGap(79, 548, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
                             .addComponent(jLabel4)
-                            .addComponent(txtMem, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtMem, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                            .addComponent(txtNum)
+                            .addComponent(txtDPI))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)))
+                .addGap(116, 116, 116))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,17 +230,27 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -189,17 +272,28 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
            try{
             Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/FilmMagic", "root", "");
-            PreparedStatement pst = cn.prepareStatement("insert into Usuarios values(?,?,?,?)");
-            
+            PreparedStatement pst = cn.prepareStatement("insert into Usuarios values(?,?,?,?,?,?)");
+           
+if(txtNombre.getText().length()==0){
+           JOptionPane.showMessageDialog(null, "Para continuar con el Registro LLene los campos solicitados");
+           txtNombre.requestFocus(); //Si algunos de los campos están vacios, el foco apunta al primer campo.......
+}else{
             pst.setString(1, txtMem.getText().trim());
             pst.setString(2, "0");
             pst.setString(3, txtNombre.getText().trim());
             pst.setString(4, txtDire.getText().trim());
+            pst.setString(5, txtNum.getText().trim());
+            pst.setString(6, txtDPI.getText().trim());
             pst.executeUpdate();
+            
+     
+}
             
             txtNombre.setText("");
             txtDire.setText("");
             txtMem.setText("");
+            txtNum.setText("");
+            txtDPI.setText("");
             lblEstatus.setText("Registro exitoso.");
         }catch (Exception e){
             
@@ -212,11 +306,14 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
             String ID = txtBuscar.getText().trim();
             
             Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/FilmMagic", "root", "");
-            PreparedStatement pst = cn.prepareStatement("update Usuarios set nombre_usuario = ?, direccion_usuario = ?, membresia_usuario = ? where membresia_usuario = " + ID);
+            PreparedStatement pst = cn.prepareStatement("update Usuarios set nombre_usuario = ?, direccion_usuario = ?, membresia_usuario = ?, numero_usuario = ?, DPI_usuario = ? where membresia_usuario = " + ID);
             
             pst.setString(1, txtNombre.getText().trim());
-            pst.setString(2, txtDire.getText().trim());
-            pst.setString(3, txtMem.getText().trim());
+            pst.setString(3, txtDire.getText().trim());
+            pst.setString(4, txtMem.getText().trim());
+            pst.setString(5, txtDire.getText().trim());
+            pst.setString(6, txtDPI.getText().trim());
+            
             pst.executeUpdate();
             
             lblEstatus.setText("Modificación exitosa.");
@@ -237,6 +334,8 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
             txtNombre.setText("");
             txtDire.setText("");
             txtMem.setText("");
+            txtDPI.setText("");
+            txtNum.setText("");
             txtBuscar.setText("");
             
             lblEstatus.setText("Registro eliminado.");
@@ -257,6 +356,8 @@ public class MantenimientoUsuarios extends javax.swing.JInternalFrame {
             if(rs.next()){
                 txtNombre.setText(rs.getString("nombre_usuario"));
                 txtDire.setText(rs.getString("direccion_usuario"));
+                txtNum.setText(rs.getString("numero_usuario"));
+                txtDPI.setText(rs.getString("DPI_usuario"));
                 txtMem.setText(rs.getString("membresia_usuario"));
             } else {
             //    JOptionPane.showMessageDialog(null, "Usuario no registrado.");
@@ -284,6 +385,16 @@ for (int i = numerosAleatorios.length; i > 0; i--) {
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+     try {
+            generar(txtNombre.getText());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MantenimientoUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(MantenimientoUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -291,14 +402,20 @@ for (int i = numerosAleatorios.length; i > 0; i--) {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lblEstatus;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtDPI;
     private javax.swing.JTextField txtDire;
     private javax.swing.JTextField txtMem;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNum;
     // End of variables declaration//GEN-END:variables
 }
