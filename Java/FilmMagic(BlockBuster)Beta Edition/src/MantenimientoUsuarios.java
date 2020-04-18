@@ -11,6 +11,9 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Desktop;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -84,7 +87,6 @@ public void generar(String nombre) throws FileNotFoundException, DocumentExcepti
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -96,16 +98,14 @@ public void generar(String nombre) throws FileNotFoundException, DocumentExcepti
         txtDire = new javax.swing.JTextField();
         txtBuscar = new javax.swing.JTextField();
         lblEstatus = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtMem = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtNum = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtDPI = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
-
-        jLabel5.setText("jLabel5");
+        jLabel11 = new javax.swing.JLabel();
+        txtMem = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -152,8 +152,6 @@ public void generar(String nombre) throws FileNotFoundException, DocumentExcepti
             }
         });
 
-        jLabel4.setText("Membresia");
-
         jButton5.setText("Generar Membresia");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,7 +159,7 @@ public void generar(String nombre) throws FileNotFoundException, DocumentExcepti
             }
         });
 
-        jLabel6.setText("Numero Tel,");
+        jLabel6.setText("Numero Tel");
 
         jLabel7.setText("DPI");
 
@@ -172,6 +170,8 @@ public void generar(String nombre) throws FileNotFoundException, DocumentExcepti
             }
         });
 
+        jLabel11.setText("Membresia");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -180,44 +180,40 @@ public void generar(String nombre) throws FileNotFoundException, DocumentExcepti
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
-                                .addComponent(txtDire)
-                                .addComponent(txtNombre))
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(49, 49, 49)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(31, 31, 31))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(lblEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(79, 548, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel4)
-                            .addComponent(txtMem, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
-                            .addComponent(txtNum)
-                            .addComponent(txtDPI))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)))
-                .addGap(116, 116, 116))
+                            .addComponent(jLabel2)
+                            .addComponent(txtDire, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, 0))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtNum, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                                        .addComponent(txtNombre)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtDPI, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtMem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton5)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap(22, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,9 +235,9 @@ public void generar(String nombre) throws FileNotFoundException, DocumentExcepti
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMem, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -250,13 +246,13 @@ public void generar(String nombre) throws FileNotFoundException, DocumentExcepti
                     .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -271,19 +267,18 @@ public void generar(String nombre) throws FileNotFoundException, DocumentExcepti
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
            try{
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/FilmMagic", "root", "");
-            PreparedStatement pst = cn.prepareStatement("insert into Usuarios values(?,?,?,?,?,?)");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/filmmagic", "root", "");
+            PreparedStatement pst = cn.prepareStatement("insert into Usuarios values(?,?,?,?,?)");
            
-if(txtNombre.getText().length()==0){
-           JOptionPane.showMessageDialog(null, "Para continuar con el Registro LLene los campos solicitados");
+           if(txtNombre.getText().length()==0){
+           JOptionPane.showMessageDialog(null, "Para continuar con el Registro Llene los campos solicitados");
            txtNombre.requestFocus(); //Si algunos de los campos están vacios, el foco apunta al primer campo.......
 }else{
             pst.setString(1, txtMem.getText().trim());
-            pst.setString(2, "0");
-            pst.setString(3, txtNombre.getText().trim());
-            pst.setString(4, txtDire.getText().trim());
-            pst.setString(5, txtNum.getText().trim());
-            pst.setString(6, txtDPI.getText().trim());
+            pst.setString(2, txtNombre.getText().trim());
+            pst.setString(3, txtDire.getText().trim());
+            pst.setString(4, txtNum.getText().trim());
+            pst.setString(5, txtDPI.getText().trim());
             pst.executeUpdate();
             
      
@@ -298,6 +293,7 @@ if(txtNombre.getText().length()==0){
         }catch (Exception e){
             
         }
+           
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -305,7 +301,7 @@ if(txtNombre.getText().length()==0){
         try {
             String ID = txtBuscar.getText().trim();
             
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/FilmMagic", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/filmmagic", "root", "");
             PreparedStatement pst = cn.prepareStatement("update Usuarios set nombre_usuario = ?, direccion_usuario = ?, membresia_usuario = ?, numero_usuario = ?, DPI_usuario = ? where membresia_usuario = " + ID);
             
             pst.setString(1, txtNombre.getText().trim());
@@ -325,7 +321,7 @@ if(txtNombre.getText().length()==0){
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
                 try {
-             Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/FilmMagic", "root", "");
+             Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/filmmagic", "root", "");
             PreparedStatement pst = cn.prepareStatement("delete from Usuarios where membresia_usuario = ?");
             
             pst.setString(1, txtBuscar.getText().trim());
@@ -347,7 +343,7 @@ if(txtNombre.getText().length()==0){
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
           try{
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/FilmMagic", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/filmmagic", "root", "");
             PreparedStatement pst = cn.prepareStatement("select * from Usuarios where membresia_usuario = ?");
             pst.setString(1, txtBuscar.getText().trim());
             
@@ -381,7 +377,11 @@ for (int i = numerosAleatorios.length; i > 0; i--) {
 }
     //usa el valor de aleatorio...
     txtMem.setText(String.valueOf(numerosAleatorios));
-    JOptionPane.showMessageDialog(null, "Su membresia es: "+numerosAleatorios);
+    JOptionPane.showMessageDialog(null, "Su membresia fue copiada al portapapeles: "+numerosAleatorios);
+    {String str3 = String.valueOf(numerosAleatorios); 
+    Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
+    StringSelection ss = new StringSelection(str3);
+    cb.setContents(ss, ss);}
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -404,10 +404,9 @@ for (int i = numerosAleatorios.length; i > 0; i--) {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lblEstatus;
